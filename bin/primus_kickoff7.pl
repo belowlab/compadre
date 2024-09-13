@@ -117,6 +117,14 @@ my $public_html_dir = "/nfs/home/grapas2/public_html";
 
 ## Process command line options.
 apply_options();
+
+if(-d $output_dir) # The output directory exist we are going to rename
+{
+	system("mv $output_dir $output_dir\_OLD");	
+} 
+# Then we need to create the direcotry to output to
+make_path($output_dir) if !-d $output_dir;
+
 open($LOG,">$log_file") if($LOG eq "");
 
 print $LOG "Commandline options used: @commandline_options\n";
